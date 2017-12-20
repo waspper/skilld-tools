@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Skilld Invoice</title>
+    <style type="text/css">
+      .content {
+        margin: auto;
+        width: 80%;
+        height: auto;
+        margin-top: 100px;
+      }
+      .label {
+        color: #808080;
+      }
+      table thead {
+        background-color: #808080;
+        color: #FFFFFF;
+      }
+      table.full {
+        width: 100%;
+      }
+      table.full th,
+      table.full td {
+        height: 20px;
+      }
+
+      .invoice-header {
+        padding: 10px;
+        border: 2px solid #000000;
+      }
+      .invoice-header-top {
+        margin-top: 5px;
+      }
+      .lft {
+        width: 50%;
+        float: left;
+      }
+      .align-right {
+        text-align: right;
+      }
+
+      table.invoice-header-details tbody tr td.label {
+        width: 10%;
+      }
+      
+
+      table.invoice-main-details {
+        text-align: center;
+        border-collapse: collapse;
+      }
+      table.invoice-main-details,
+      table.invoice-main-details th,
+      table.invoice-main-details td {
+        border: 1px solid black;
+      }
+      
+      table.invoice-bank-details {
+        padding: 2px;
+        border-collapse: collapse;
+      }
+      table.invoice-bank-details,
+      table.invoice-bank-details th,
+      table.invoice-bank-details td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="invoice-header">
+        <div class="invoice-header-top">
+          <div class="lft"><h1 class="label">INVOICE</h1></div>
+          <div class="lft align-right"><p class="label">{{ billing_items.billing_name }}</p></div>
+        </div>
+        <table class="invoice-header-details full">
+          <tbody>
+            <tr>
+              <td class="label">Client:</td>
+              <td class="value">Skilld Sas.</td>
+            </tr>
+            <tr>
+              <td class="label">Address:</td>
+              <td class="value">23 Rue Saint Hippolyte 75013.</td>
+            </tr>
+            <tr>
+              <td class="label">City:</td>
+              <td class="value">Paris.</td>
+            </tr>
+            <tr>
+              <td class="label">Country:</td>
+              <td class="value">France.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="invoice-main">
+        <table class="invoice-main-details full">
+          <thead>
+            <tr>
+              <td>Code</td>
+              <td>Description</td>
+              <td>Units</td>
+              <td>Price</td>
+              <td>Subtotal</td>
+              <td>Total</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% set billing_records = billing_items.elements %}
+            {% for key in billing_records %}
+              <tr>
+                <td class="value">{{ billing_records[key].billing_code }}</td>
+                <td class="value">{{ billing_records[key].billing_concept }}</td>
+                <td class="value">{{ billing_records[key].billing_units }}</td>
+                <td class="value">{{ billing_records[key].billing_value }}</td>
+                <td class="value">{{ billing_records[key].billing_total }}</td>
+                <td class="value">{{ billing_records[key].billing_total }}</td>
+              </tr>
+            {% endfor %}
+            {% for _ in range(billing_items.amount, 15) %}
+              <tr>
+                <td class="label"></td>
+                <td class="value"></td>
+                <td class="value"></td>
+                <td class="value"></td>
+                <td class="value"></td>
+                <td class="value"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="invoice-bank-info">
+        <table class="invoice-bank-details full">
+          <thead>
+            <tr>
+              <td colspan="2">Bank information</td>
+            </tr>
+          </thead>
+          <tbody>            
+            {% set banking_records = banking_items.elements %}
+            {% for key in banking_records %}
+              <tr>
+                <td>{{ banking_records[key].banking_label }}</td>
+                <td>{{ banking_records[key].banking_value }}</td>
+              </tr>
+            {% endfor %}
+            {% for _ in range(banking_items.amount, 15) %}
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>        
+      </div>
+    </div>
+  </body>
+</html>
