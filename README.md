@@ -1,7 +1,7 @@
 ABOUT
 --------------------
 This small application is intended to be used as internal tool by
-Skilld S.A.S.
+Skilld with educational purposes.
 
 TECHNICAL SPECS
 --------------------
@@ -22,3 +22,9 @@ execute it by running:
 
 python3 run.py
 
+PROVIDED INSTALLERS
+--------------------
+At this momment, there is provided a .deb package built in on Debian. But
+it should work in most of Linux distributions based on it.
+
+- https://drive.google.com/open?id=1LXV5eokGcC3br2cAtsBwNOYAnQ0BNUfS
